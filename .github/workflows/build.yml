@@ -1,19 +1,21 @@
-name: Playwright metrics to SonarQube
+name: Build
 
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
-    branches: [main]
+    types: [opened, synchronize, reopened]
 
 jobs:
-  test-and-scan:
+  sonarqube:
+    name: SonarQube
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
-          fetch-depth: 0
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
       - uses: actions/setup-node@v4
         with:
@@ -42,10 +44,9 @@ jobs:
             test-results/
             reports/sonar-playwright.xml
 
-      # Test execution import is most useful on branch analysis. Coverage remains the preferred PR metric.
-      # Requires SonarCloud Automatic Analysis to be disabled for this project.
-      - name: SonarQube Cloud scan
-        if: success() && github.event_name != 'pull_request'
-        uses: SonarSource/sonarqube-scan-action@v6
+      # This CI-based scan is required for Playwright test execution import.
+      # SonarCloud Automatic Analysis must be disabled for this project.
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@7006c4492b2e0ee0f816d36501671557c97f5995 # v8.1.0
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
