@@ -41,7 +41,7 @@ jobs:
 
       # Test execution import is most useful on branch analysis. Coverage remains the preferred PR metric.
       - name: SonarQube scan
-        if: always() && github.event_name == 'push'
-        uses: SonarSource/sonarqube-scan-action@v5
+        if: success() && github.event_name == 'push'
+        uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
