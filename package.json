@@ -1,0 +1,27 @@
+{
+  "name": "playwright-test",
+  "version": "1.0.0",
+  "private": false,
+  "type": "module",
+  "description": "Small Vite + Playwright demo app that emits SonarQube-compatible Playwright test execution metrics.",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:report": "playwright show-report",
+    "sonar": "sonar-scanner"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "vite": "latest",
+    "typescript": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "@bdellegrazie/playwright-sonar-reporter": "latest",
+    "@playwright/test": "latest"
+  }
+}
