@@ -43,9 +43,26 @@ SONAR_TOKEN=<your-token> npm run sonar -- \
   -Dsonar.organization=<your-org>
 ```
 
+## SonarQube Cloud setup
+
+This repository is instrumented for SonarQube Cloud with:
+
+```properties
+sonar.projectKey=sonar-solutions_playwright-test
+sonar.organization=sonar-solutions
+sonar.host.url=https://sonarcloud.io
+sonar.testExecutionReportPaths=reports/sonar-playwright.xml
+```
+
+Required SonarCloud/GitHub setup:
+
+1. Add or expose a GitHub Actions secret named `SONAR_TOKEN` for this repository.
+2. Disable SonarCloud Automatic Analysis for `sonar-solutions_playwright-test`; CI-based analysis is required because the workflow must run Playwright before SonarScanner can import `reports/sonar-playwright.xml`.
+3. Push to `main` or run the workflow manually with `workflow_dispatch`.
+
 ## CI example
 
-See `.github/workflows/ci.yml`. The workflow runs Playwright first so `reports/sonar-playwright.xml` exists before the SonarQube scan step.
+See `.github/workflows/ci.yml`. The workflow runs Playwright first so `reports/sonar-playwright.xml` exists before the SonarQube Cloud scan step.
 
 ## Notes
 
