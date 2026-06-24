@@ -11,17 +11,23 @@
     "test:e2e": "playwright test",
     "test:e2e:headed": "playwright test --headed",
     "test:e2e:report": "playwright show-report",
-    "sonar": "sonar-scanner"
+    "sonar": "sonar-scanner",
+    "test:e2e:coverage": "rm -rf .nyc_output coverage && VITE_COVERAGE=true npm run build && E2E_COVERAGE=true playwright test && nyc report --reporter=lcov --report-dir coverage"
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",
-    "vite": "latest",
-    "typescript": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "typescript": "latest",
+    "vite": "latest"
   },
   "devDependencies": {
     "@bdellegrazie/playwright-sonar-reporter": "latest",
-    "@playwright/test": "latest"
+    "@playwright/test": "latest",
+    "@types/node": "^26.0.0",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "nyc": "^18.0.0",
+    "vite-plugin-istanbul": "^9.0.1"
   }
 }

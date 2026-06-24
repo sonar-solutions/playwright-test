@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './coverage-fixture';
 
 test.describe('Metrics summary cards', () => {
   test('renders the headline and all metric cards', async ({ page }) => {

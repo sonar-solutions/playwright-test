@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './coverage-fixture';
 
 test.describe('Dashboard interactions', () => {
   test('updates metrics when a new passing run is added', async ({ page }) => {

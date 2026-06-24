@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test } from './coverage-fixture';
 
 test.describe('Intentional skipped examples for SonarQube import', () => {
   test.skip('skips a Safari-only payment authorization scenario', async () => {

@@ -28,11 +28,8 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
-      - name: Build app
-        run: npm run build
-
-      - name: Run Playwright and generate Sonar test execution XML
-        run: npm run test:e2e
+      - name: Run Playwright, generate Sonar test execution XML, and generate LCOV coverage
+        run: npm run test:e2e:coverage
 
       - name: Upload Playwright artifacts
         if: always()
@@ -43,6 +40,7 @@ jobs:
             playwright-report/
             test-results/
             reports/sonar-playwright.xml
+            coverage/lcov.info
 
       # This CI-based scan is required for Playwright test execution import.
       # SonarCloud Automatic Analysis must be disabled for this project.
