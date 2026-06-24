@@ -45,6 +45,8 @@ function App() {
     return matchesStatus && matchesArea;
   });
 
+  const showIncidentPanel = new URLSearchParams(window.location.search).has('incident');
+
   const areaHealth = useMemo(() => {
     return ['Authentication', 'Checkout', 'Reporting', 'Mobile'].map((area) => {
       const areaRuns = runs.filter((run) => run.area === area);
@@ -165,7 +167,27 @@ function App() {
           </ul>
         </section>
       </section>
+
+      {showIncidentPanel ? renderIncidentDrilldown(runs) : null}
     </main>
+  );
+}
+
+function renderIncidentDrilldown(runs: TestRun[]) {
+  const failingRuns = runs.filter((run) => run.status === 'failed');
+  const skippedRuns = runs.filter((run) => run.status === 'skipped');
+  const slowestRun = [...runs].sort((left, right) => right.durationMs - left.durationMs)[0];
+
+  return (
+    <section className="panel incident-panel" aria-label="Incident drilldown">
+      <h2>Incident drilldown</h2>
+      <p>Failing tests that need triage: {failingRuns.length}</p>
+      <p>Skipped tests waiting for enablement: {skippedRuns.length}</p>
+      <p>Slowest observed run: {slowestRun.name}</p>
+      <button type="button" onClick={() => window.alert('Escalation created')}>
+        Create escalation
+      </button>
+    </section>
   );
 }
 
