@@ -45,7 +45,7 @@ function App() {
     return matchesStatus && matchesArea;
   });
 
-  const showIncidentPanel = new URLSearchParams(window.location.search).has('incident');
+  const showIncidentPanel = new URLSearchParams(globalThis.location.search).has('incident');
 
   const areaHealth = useMemo(() => {
     return ['Authentication', 'Checkout', 'Reporting', 'Mobile'].map((area) => {
@@ -184,14 +184,14 @@ function renderIncidentDrilldown(runs: TestRun[]) {
       <p>Failing tests that need triage: {failingRuns.length}</p>
       <p>Skipped tests waiting for enablement: {skippedRuns.length}</p>
       <p>Slowest observed run: {slowestRun.name}</p>
-      <button type="button" onClick={() => window.alert('Escalation created')}>
+      <button type="button" onClick={() => globalThis.alert('Escalation created')}>
         Create escalation
       </button>
     </section>
   );
 }
 
-function MetricCard({ label, value, testId }: { label: string; value: number | string; testId: string }) {
+function MetricCard({ label, value, testId }: Readonly<{ label: string; value: number | string; testId: string }>) {
   return (
     <article className="card" data-testid={testId}>
       <span>{label}</span>
